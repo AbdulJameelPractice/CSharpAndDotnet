@@ -1,0 +1,8 @@
+#!csharp
+
+Console.WriteLine("Hello from notebook");
+#error version
+
+#!markdown
+
+**Printing console output**
