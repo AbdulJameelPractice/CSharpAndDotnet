@@ -1,0 +1,38 @@
+#!markdown
+
+##### Records
+- hashcode of the record will be same if the value of the `records` are same
+- records is just a fancy class & values are `immutable`.
+
+###### Benifits
+ - simple to setup
+ - thread safe
+###### When to Use?
+ - Capturing external data that doesnt change  - whether service data in blazor dont want to change it
+ - with in apis, read from database and send it as it is.
+ - for data processing without changing the model.
+
+#!csharp
+
+using System;
+using static System.Console;
+using static System.Object;
+
+#!csharp
+
+public record MyFirstRecord(string FirstName, string LastName);
+
+MyFirstRecord record1 = new("Abdul", "Jameel");
+
+MyFirstRecord record2 = new("Abdul", "Jameel Bhatti");
+
+MyFirstRecord record3 = new("Abdul", "Jameel");
+
+WriteLine($"record1 eq record2? Object Equals {Equals(record1, record2)}  Operator Equals(=) {record1 == record2}");
+
+WriteLine($"record1 eq record3? {record1.Equals(record3)}");
+
+// cannot assign, record is immutable.
+//record.FirstName="Jameel";
+
+display(record1);

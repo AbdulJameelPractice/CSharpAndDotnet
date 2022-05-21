@@ -1,8 +1,40 @@
 #!csharp
 
 Console.WriteLine("Hello from notebook");
-#error version
+//#error version
 
 #!markdown
 
-**Printing console output**
+#### keyword nameof
+output the name of the variable using _**nameof**_ keyword
+
+#!csharp
+
+int numberForValue=10;
+Console.Write($"{nameof(numberForValue)}"); 
+
+#!markdown
+
+### Numbers
+
+ - deciamal
+ - float 
+ - double
+ - short
+
+#!csharp
+
+display($"Size of double {sizeof(double)} range min {double.MinValue:N0} \n max {double.MaxValue:N0}");
+display($"Size of decimal {sizeof(decimal)} range min {decimal.MinValue:N0} \n max {decimal.MaxValue:N0}");
+
+#!markdown
+
+### Records
+
+#!csharp
+
+internal record Class2(int a, int b);
+
+Class2 record = new Class2(10,10);
+
+display(record);
