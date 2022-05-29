@@ -38,3 +38,20 @@ internal record Class2(int a, int b);
 Class2 record = new Class2(10,10);
 
 display(record);
+
+#!csharp
+
+var dayOftheWeek = DateTime.Now.DayOfWeek;
+
+string dayString = (dayOftheWeek) switch
+{
+        DayOfWeek.Monday => "hello its monday",
+        DayOfWeek.Thursday => "hello its Thursday",
+        DayOfWeek.Tuesday => "hello its Tuesday",
+        DayOfWeek.Sunday => "hello its Sunday",
+
+       var p when p is DayOfWeek.Friday => "its friday!!!",
+        _ =>"nothing"
+};
+
+display(dayOftheWeek)

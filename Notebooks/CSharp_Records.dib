@@ -4,10 +4,10 @@
 - hashcode of the record will be same if the value of the `records` are same
 - records is just a fancy class & values are `immutable`.
 
-###### Benifits
+##### Benifits
  - simple to setup
  - thread safe
-###### When to Use?
+##### When to Use?
  - Capturing external data that doesnt change  - whether service data in blazor dont want to change it
  - with in apis, read from database and send it as it is.
  - for data processing without changing the model.
