@@ -55,3 +55,210 @@ string dayString = (dayOftheWeek) switch
 };
 
 display(dayOftheWeek)
+
+#!csharp
+
+public class Card
+{
+    public Card(string name)
+    {
+        this.name = name;
+    }
+    string name;
+    public static implicit operator Card(string name)
+    {
+          return new Card(name);
+    }
+
+    public override string ToString()
+    {
+        return name;
+    }
+}
+
+Card newcard=new Card("firstcard");
+
+Card secondCard = "second card";
+
+display(newcard);
+display(secondCard);
+
+#!csharp
+
+var set = new HashSet<Card>();
+set.Add(new Card("J-c"));
+set.Add(new Card("A-c"));
+set.Add(new Card("9-d"));
+set.Add(new Card("9-d"));
+
+var threeHearts = new Card("3-h");
+set.Add(threeHearts);
+
+display(set);
+
+#!csharp
+
+public abstract class Shape
+{
+    public static void PrintShape()
+    {
+        Console.WriteLine("Printing your shape");
+    }
+}
+
+
+Shape.PrintShape();
+
+#!csharp
+
+using static System.Console;
+public class Person
+{
+    public String Name {get;init;}
+    public List<Person> Childres=new ();
+
+    public static Person operator *(Person p1, Person p2)
+    {
+        Person child = new Person();
+        p1.Childres.Add(child);
+        p2.Childres.Add(child);
+        return child;
+    }
+
+    public override string ToString()
+    {
+         return Name;
+    }
+}
+
+Person Watt = new Person();
+Person Tames = new Person();
+
+var baby = Watt * Tames;
+
+baby
+
+#!csharp
+
+public class AnotherPerson: IComparable<AnotherPerson>
+{
+    public string Name {get;set;}
+ public int CompareTo(AnotherPerson person)
+ {
+     return Name.CompareTo(person.Name);
+ }
+}
+
+#!csharp
+
+public interface IPlayable
+{
+    void Play();
+    void Pause();
+    void Stop()
+    {
+        System.Console.Write("\nStopping");
+    }
+}
+public class Dars:IPlayable
+{
+    public void Play()
+    {
+        System.Console.Write("\nPlaying dars");
+    }
+    public void Pause()
+    {
+        System.Console.Write("\nPausing");
+    }
+}
+
+IPlayable dars= new Dars();
+dars.Play();
+dars.Pause();
+dars.Stop();
+
+#!csharp
+
+public class Persona
+{
+    public string Name {get;set;}
+
+    public static bool operator ==(Persona p1, Persona p2)
+    {
+        return p1.Name.Equals(p2.Name);
+    }
+    public static bool operator !=(Persona p1, Persona p2)
+    {
+        return !(p1.Name.Equals(p2.Name));
+    }
+}
+
+public record class Persona2
+{
+    public string Name{get;set;}
+}
+
+Persona p1 = new Persona()
+{
+    Name="p1"
+};
+
+Persona p2 = new Persona()
+{
+    Name="p2"
+};
+
+Persona p3 = new Persona()
+{
+    Name="p1"
+};
+
+display(p1==p2);
+
+display(p1==p3);
+
+
+Persona2 ps2 = new Persona2()
+{
+    Name="Persona2"
+};
+
+Persona2 ps22 = new Persona2()
+{
+    Name="Persona2"
+};
+
+display(ps2==ps22);
+
+#!csharp
+
+sealed class Shaper
+{
+    public int GetLength()
+    {
+         return -1;
+    }
+}
+
+#!csharp
+
+public class Person{
+
+}
+public class Employee:Person
+{
+
+}
+public class Student:Person
+{
+
+}
+Person empl  = new Employee();
+if(empl is Employee)
+{
+   display("empl is Employee");
+}
+if(empl is not Student)
+{
+    display("empl is not Student");
+}
