@@ -31,10 +31,10 @@ namespace Northwind.API.Controllers
         [ProducesResponseType(200, Type = typeof(Customer))]
         public async Task<IActionResult> GetCustomer(string id)
         {
-            if (string.IsNullOrEmpty(id))
-            {
-                return BadRequest("id cannot be empty");
-            }
+            //if (string.IsNullOrEmpty(id))
+            //{
+            //    return BadRequest("id cannot be empty");
+            //}
             var customer = await this.repository.RetrieveAsync(id);
 
             if (customer == null)
@@ -87,10 +87,10 @@ namespace Northwind.API.Controllers
         [ProducesResponseType(204)] //NO Content
         public async Task<IActionResult> DeleteCustomer(string id)
         {
-            if(string.IsNullOrEmpty(id))
-            {
-                return BadRequest("customer id is required");
-            }
+            //if(string.IsNullOrEmpty(id))
+            //{
+            //    return BadRequest("customer id is required");
+            //}
             var existingCustomer = await repository.RetrieveAsync(id);
             if(existingCustomer==null)
             {
