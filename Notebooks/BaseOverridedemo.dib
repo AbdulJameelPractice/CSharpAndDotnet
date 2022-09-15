@@ -1,0 +1,22 @@
+#!csharp
+
+internal class Base
+{
+    public string Name {get;set;}
+}
+public class SubClass:Base
+{
+    public new string Name {get;set;}
+}
+
+Base b= new SubClass(){
+    Name="sub"
+};
+
+
+
+SubClass s= b as SubClass;
+
+s.Name="overridden";
+Console.WriteLine(s.Name);
+Console.WriteLine(b.Name + b.Name?.Length);
