@@ -77,6 +77,14 @@ C# is the most popular language to build .NET applications today. It’s part of
  - The .NET Ecosystem support developing application for desktop, web, mobile, cloud, IOT, Games and AI
  - Ecosystem also support several language(C#, F# and VB.NET) and libraries to build apps, Tools to support to build apps
  - .NET 6 - cross platform runs everywhere windows, mac and linux
- - 
+ - C# 
+     - popular, well maintained, commonly used for building .NET application
+     - Object oriented programming language
+     - Type safe language
+     - Familiar for C, C++, Java and JS Developers
+     - Actively maintained and backward compatible
+     - build console, desktop, web application, mobile apps, services
+     - you can use .NET CLI and VS code to build apps for all platforms
 
+![Alt text](<docs/Csharp_actively maintianed.png>)
 
