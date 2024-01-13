@@ -4,6 +4,8 @@
   - [C# The Big Picture](#c-the-big-picture)
     - [The Evolution of C#](#the-evolution-of-c)
   - [C#10 Fundamentals](#c10-fundamentals)
+    - [C# Language](#c-language)
+    - [building block of any language including C#](#building-block-of-any-language-including-c)
 
 
 C# is the most popular language to build .NET applications today. It’s part of the .NET ecosystem, which offers developers all the tools, languages and frameworks to create all types of applications including web, cloud, desktop and mobile.
@@ -77,14 +79,66 @@ C# is the most popular language to build .NET applications today. It’s part of
  - The .NET Ecosystem support developing application for desktop, web, mobile, cloud, IOT, Games and AI
  - Ecosystem also support several language(C#, F# and VB.NET) and libraries to build apps, Tools to support to build apps
  - .NET 6 - cross platform runs everywhere windows, mac and linux
- - C# 
-     - popular, well maintained, commonly used for building .NET application
-     - Object oriented programming language
-     - Type safe language
-     - Familiar for C, C++, Java and JS Developers
-     - Actively maintained and backward compatible
-     - build console, desktop, web application, mobile apps, services
-     - you can use .NET CLI and VS code to build apps for all platforms
+### C# Language
+     popular, well maintained, commonly used for building .NET application
+     Object oriented programming language
+     Type safe language
+     Familiar for C, C++, Java and JS Developers
+     Actively maintained and backward compatible
+     can be used to build all types of .NET applications
+     build console, desktop, web application, mobile apps, services
+     you can use .NET CLI and VS code to build apps for all platforms
+- [C# documentation](https://docs.microsoft.com/en-us/dotnet/csharp)
+- [.NET API browser](https://learn.microsoft.com/en-us/dotnet/api/)
 
 ![Alt text](<docs/Csharp_actively maintianed.png>)
 
+### building block of any language including C#
+- `Statements`: actions maintain the program Console.WriteLine(""), flow of program executed in an vertical order, ends with semicolon
+- `Identifiers`: naming a thing, variable, read value from console, name classes, namespaces etc, 2_input is invalid identifiers
+- `Comments`: - additional info about our code, single line // , multiline /* */
+- `Keywords`: int, in, ref, while - reserved words with special meaning and cannot be changed, more than 70 keywords
+- `Variable`: storage locator and holds a value, use a memory of computer, unique name, and can access using name, and it has type, int, string, date etc
+ ```cs 
+  int age; // variable declaration
+  int Age;
+  int ageOfEmployees;
+
+  age=25; // assigned variable using = assignment variable
+  Console.Write(age); // use of variable
+  ```
+- C# is a strongly typed language, every variable has a type. Used to store information, Expressions will return a value of a specified type.
+- Data Type - type of data variable can store
+- Size and location in memory
+- depends on the type of data, some of them are stored on `heap` and some of them are stored on `stack`
+- Data range = min and max values
+- supported operations e.g. add two integers, not add two boolean
+- Predefined types and User-defined types
+- `Predefined types`
+  - bool
+  - int - 32, 4 bytes to store data
+  - string
+  - float
+  - decimal - height precision
+  - double
+  - char - single characters
+  - byte(sbyte) - 8 bit integer 0 to 255
+  - short(ushort) - 16bit integer
+  - object
+- once the type of variable is declared it cannot change its type during its life time.
+- `constant variables`: value cannot be changed
+ ```cs
+ const decimal interestRate = 0.07;
+ ```
+ - `string`: series or list of characters, contains text, stored as a list of char object, string type
+ - `Operator`: a symbol used to perform operations on operands. operands can be variables and values.
+   - Arithmetic: +, -. *, /, %, ++, --
+   - Comparison: ==, !=, <, >, <=, >=
+   - Logical: &&, ||, !
+   - Assignment: =, +=, -= etc
+-
+
+![Alt text](docs/2024-01-13_17h22_09.png)
+![Alt text](docs/2024-01-13_16h49_41.png)
+![Alt text](docs/2024-01-13_17h38_19.png)
+![Alt text](docs/2024-01-13_17h39_31.png)
