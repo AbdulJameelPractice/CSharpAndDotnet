@@ -5,12 +5,15 @@
     - [The Evolution of C#](#the-evolution-of-c)
   - [C#10 Fundamentals](#c10-fundamentals)
     - [C# Language](#c-language)
-    - [building block of any language including C#](#building-block-of-any-language-including-c)
+    - [Building Blocks of C#](#building-blocks-of-c)
     - [Decision and Iterations Statements in C#](#decision-and-iterations-statements-in-c)
     - [Methods in C#](#methods-in-c)
+    - [Working with Strings in C#](#working-with-strings-in-c)
+    - [Classes and Objects in C#](#classes-and-objects-in-c)
+    - [Value Types and Reference Types](#value-types-and-reference-types)
 
 
-C# is the most popular language to build .NET applications today. It’s part of the .NET ecosystem, which offers developers all the tools, languages and frameworks to create all types of applications including web, cloud, desktop and mobile.
+ C# is the most popular language to build .NET applications today. It’s part of the .NET ecosystem, which offers developers all the tools, languages and frameworks to create all types of applications including web, cloud, desktop and mobile.
 
  C# 10, the latest version part of the .NET 6 release. C# 12 is supported along with .NET 8.0, release.
 
@@ -52,11 +55,8 @@ C# is the most popular language to build .NET applications today. It’s part of
  - Introduction to the C# Type Systems - gill Cleeren
 
 ![Alt text](docs/2023-11-27_18h02_23.png)
-
 ![Alt text](docs/2023-11-27_18h08_43.png)
-
 ![Alt text](docs/2023-11-27_18h14_43.png)
-
 ![Alt text](docs/2023-11-27_18h16_33.png)
 
 ### The Evolution of C#
@@ -95,7 +95,7 @@ C# is the most popular language to build .NET applications today. It’s part of
 
 ![Alt text](<docs/Csharp_actively maintianed.png>)
 
-### building block of any language including C#
+### Building Blocks of C#
 - `Statements`: actions maintain the program Console.WriteLine(""), flow of program executed in an vertical order, ends with semicolon
 - `Identifiers`: naming a thing, variable, read value from console, name classes, namespaces etc, 2_input is invalid identifiers
 - `Comments`: - additional info about our code, single line // , multiline /* */
@@ -200,3 +200,71 @@ C# is the most popular language to build .NET applications today. It’s part of
 ![Alt text](docs/2024-01-13_20h31_27.png)
 ![Alt text](docs/2024-01-13_20h33_18.png)
 
+### Working with Strings in C#
+- ToLower() 
+- String.Format("")
+- try parse for parsing
+- methods to support various operations on string.
+
+![Alt text](docs/2024-01-13_20h55_29.png)
+![Alt text](docs/2024-01-13_20h52_55.png)
+![Alt text](docs/2024-01-13_21h00_56.png)
+![Alt text](docs/2024-01-13_21h03_18.png)
+
+### Classes and Objects in C#
+- represent custom type, typical model
+- `class`: most commonly used 
+  - are reference types and commonly used
+  - main building block in C#
+  - Blueprint of an object
+  - Contain properties data and functionality to work on its data
+  - created using `class` keyword
+  - foundation of object orientation
+  - most code will live inside a class
+  - Fields, Methods, Properties(wrapper for fields), Events
+- Struct: specific properties and similar to class
+- Access Modifies: public, private, protected(class and inherited classes)
+- Objects: instance of the class, holds a value for the fields in the class
+- Constructors: called when instantiating an object happens, Default or custom
+  - used to pass initial values 
+  - same name as class name
+  - *only access modifiers and no return type*
+
+![Alt text](docs/Co.png)
+![Alt text](docs/2024-01-13_21h19_35.png)
+![Alt text](docs/ClassConstructor.png)
+![Alt text](docs/2024-01-13_21h23_59.png)
+![Alt text](docs/2024-01-13_21h24_34.png)
+
+### Value Types and Reference Types
+- `Value Types`: types that holds direct value and usually stored on `stack`. 
+  - int, float, double, char
+  - fixed size
+  - allocated by compiler on stack
+  - value is copied to this memory location.
+- `Reference Types`: allocated on `heap`
+  - heap: mess memory of the machine
+  - stack contain just a pointer to the memory address
+  - classes are reference types
+- Passing Parameters
+  - By Value: Default if nothing else is specified, 
+    - A Copy is created for the method
+    - method can do anything with that parameters
+    - doesn't impact the caller of the method
+  - By Reference: require use of `ref` keyword on parameters 
+    - pass a reference is passed to the method
+    - no copy is made
+    - changes made in method affect original values
+    - **ref** keyword is used
+    - must be initialized before using the ref parameters
+  - out keyword
+    - don't need to be initialized
+    - Multiple values can be returned, can be done with ref as well but ref must be initialized
+
+![Alt text](docs/VTRT_1.png)
+![Alt text](docs/VTRT_2.png)
+![Alt text](docs/VTRT_3.png)
+![Alt text](docs/VTRT_4.png)
+![Alt text](docs/VTRT_5.png)
+![Alt text](docs/VTRT_6.png)
+![Alt text](docs/VTRT_7.png)

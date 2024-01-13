@@ -89,6 +89,16 @@ double withNamedParameters = HelperUtility.CalculateYearlywage(numberOfHoursWork
 Console.WriteLine($"withNamedParameters current wage is {withNamedParameters}.");
 
 
+int a = 42;
+int aCopy = a;
+
+Console.WriteLine($"a is {a}.");
+Console.WriteLine($"aCopy is {aCopy}.");
+
+a = 52;
+
+Console.WriteLine($"a is {a}.");
+Console.WriteLine($"aCopy is {aCopy}.");
 
 Console.WriteLine("Press any key to exit...");
 Console.ReadLine();
