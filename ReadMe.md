@@ -6,6 +6,8 @@
   - [C#10 Fundamentals](#c10-fundamentals)
     - [C# Language](#c-language)
     - [building block of any language including C#](#building-block-of-any-language-including-c)
+    - [Decision and Iterations Statements in C#](#decision-and-iterations-statements-in-c)
+    - [Methods in C#](#methods-in-c)
 
 
 C# is the most popular language to build .NET applications today. It’s part of the .NET ecosystem, which offers developers all the tools, languages and frameworks to create all types of applications including web, cloud, desktop and mobile.
@@ -136,9 +138,65 @@ C# is the most popular language to build .NET applications today. It’s part of
    - Comparison: ==, !=, <, >, <=, >=
    - Logical: &&, ||, !
    - Assignment: =, +=, -= etc
--
-
+ - DateTime and TimeSpan
+ - [Api Browser for DateTime](https://learn.microsoft.com/en-us/dotnet/api/system.datetime.maxvalue?view=net-8.0)
+ - implicit variable - a variable declared using `var` keyword. type is inferred (type is assigned based on right hand side value type)
+  
+![Alt text](docs/2024-01-13_18h06_11.png)
 ![Alt text](docs/2024-01-13_17h22_09.png)
 ![Alt text](docs/2024-01-13_16h49_41.png)
 ![Alt text](docs/2024-01-13_17h38_19.png)
 ![Alt text](docs/2024-01-13_17h39_31.png)
+![Alt text](docs/2024-01-13_17h45_01.png)
+![Alt text](docs/2024-01-13_17h44_32.png)
+![Alt text](docs/2024-01-13_17h56_27.png)
+![Alt text](docs/2024-01-13_18h06_36.png)
+![Alt text](docs/2024-01-13_18h07_28.png)
+
+
+### Decision and Iterations Statements in C#
+ - logical operator && and ||
+ - && return true if both are true
+ - || return true if any expression is true
+ - flow of execution can be altered with conditions
+ - `if`
+ - `switch`
+ - `while`
+ - `do while` : executed at-least once
+ - `for`
+
+![Alt text](docs/2024-01-13_19h51_10.png)
+![Alt text](docs/2024-01-13_19h53_39.png)
+![Alt text](docs/2024-01-13_19h55_28.png)
+![Alt text](docs/2024-01-13_19h58_49.png)
+![Alt text](docs/2024-01-13_19h59_52.png)
+![Alt text](docs/2024-01-13_20h00_43.png)
+
+
+### Methods in C#
+ - spilt the code in smaller blocks
+ - impose code `reusability`
+ - they are code blocks contains statements
+ - contain name, can be invoked with that name
+ - Receives parameters and optionally returns value
+ - improve readability of the code
+ - Declared with a class or struct
+ - all execution path should return a value if method has defined a return type
+ - A Method can return nothing with `void` type
+ - we can pass arguments, values for the parameters
+ - you can capture return value in a variable if the method is returning a value
+ - a method with same name with different parameters is called as `method overloading`
+ - different parameter of different parameter types.
+ - local scope: with in the local method, local variable
+ - optional parameters: has a default value for parameters one or more, caller can omit the optional parameters. should be at the end of the parameters list.
+ - Named arguments: caller can have name of the parameters. One or more parameters can have a name defined when invoking the method.
+ - order can be changed but you need to pass all required parameters (non optional parameters)
+ - Expression Bodied syntax for method. => 
+ - `Main Method:` Entry method which gets called upn start of the app
+ - Gets created implicitly since C#10 and VS 2022
+
+![Alt text](docs/2024-01-13_20h26_22.png)
+![Alt text](docs/2024-01-13_20h06_26.png)
+![Alt text](docs/2024-01-13_20h31_27.png)
+![Alt text](docs/2024-01-13_20h33_18.png)
+

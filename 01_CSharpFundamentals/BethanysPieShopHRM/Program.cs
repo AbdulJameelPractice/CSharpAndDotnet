@@ -3,6 +3,8 @@ Multiple line comment
 Welcome to Bethany's Pie Shop HRM System!
 */
 
+using BethanysPieShopHRM;
+
 Console.WriteLine("Welcome to Bethany's Pie Shop HRM System!");
 
 // Console.WriteLine("Please enter your username:");
@@ -29,12 +31,64 @@ Console.WriteLine("Welcome to Bethany's Pie Shop HRM System!");
 // Console.WriteLine("Press any key to exit...");
 // Console.ReadLine();
 
-double ratePerHour = 15.25;
-int numberOfHoursWorked = 165;
+//double ratePerHour = 15.25;
+//int numberOfHoursWorked = 165;
 
-double currentMonthWage = ratePerHour * numberOfHoursWorked;
+//int maxValue = int.MaxValue;
+//int minValue = int.MinValue;
 
-Console.WriteLine($"Your current wage is {currentMonthWage}.");
+//// Prints The range of integers is -2147483648 to 2147483647.
+//Console.WriteLine($"The range of integers is {minValue} to {maxValue}.");
+
+//char userSelection = 'a';
+//char upperCase = char.ToUpper(userSelection);
+//bool isDigit = char.IsDigit(userSelection);
+//bool isLetter = char.IsLetter(userSelection);
+
+//Console.WriteLine($"The uppercase of {userSelection} is {upperCase}.");
+//Console.WriteLine($"Is '{userSelection}' a digit? {isDigit}.");
+//Console.WriteLine($"Is '{userSelection}' a letter? {isLetter}.");
+
+//double currentMonthWage = ratePerHour * numberOfHoursWorked;
+
+//Console.WriteLine($"Your current wage is {s}.");
+
+//DateTime today = DateTime.Today;
+//DateTime dateTime = new DateTime(2024, 1, 13);
+
+//Console.WriteLine($"Today is {today}.");
+//Console.WriteLine($"The date is {dateTime}.");
+
+//DateTime startDate = today.AddDays(12);
+//Console.WriteLine($"The start date is {startDate}.");
+
+//// throws error at run time
+////DateTime endDate = new DateTime(2024, 13, 13);
+
+
+//long veryLongMonth = numberOfHoursWorked; // works fine explicit cast
+
+//double d = 123456789.0;
+////int i = d; // throws error at compile time
+//int i = (int)d; // explicit
+
+//Console.WriteLine($"The double is {d}.");
+//Console.WriteLine($"The integer is {i}.");
+
+double currentYearWage = HelperUtility.CalculateYearlywage(15, 165);
+Console.WriteLine($"Your current wage is {currentYearWage}.");
+
+double currentYearWageForAbdul = HelperUtility.CalculateYearlywage(15, 165, 1000);
+Console.WriteLine($"Abdul current wage is {currentYearWageForAbdul}.");
+
+double currentYearWageForAbdulJameel = HelperUtility.CalculateYearlywage(15, 165, 1000.50);
+Console.WriteLine($"Abdul Jameel current wage is {currentYearWageForAbdulJameel}.");
+
+// named parameters, need to specify the parameter name and pass all the parameters
+double withNamedParameters = HelperUtility.CalculateYearlywage(numberOfHoursWorked: 165, ratePerHour: 15);
+Console.WriteLine($"withNamedParameters current wage is {withNamedParameters}.");
+
+
 
 Console.WriteLine("Press any key to exit...");
 Console.ReadLine();
