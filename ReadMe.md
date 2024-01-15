@@ -205,6 +205,11 @@
 - String.Format("")
 - try parse for parsing
 - methods to support various operations on string.
+- strings are immutable
+- any operation can return a new value in the heap
+- can have performance impact 
+- loop actions or many concatenate actions can cause high memory use!
+- use StringBuilder, when performing more operations on string
 
 ![Alt text](docs/2024-01-13_20h55_29.png)
 ![Alt text](docs/2024-01-13_20h52_55.png)
@@ -257,6 +262,7 @@
     - changes made in method affect original values
     - **ref** keyword is used
     - must be initialized before using the ref parameters
+    - strings are reference type 
   - out keyword
     - don't need to be initialized
     - Multiple values can be returned, can be done with ref as well but ref must be initialized
@@ -268,3 +274,4 @@
 ![Alt text](docs/VTRT_5.png)
 ![Alt text](docs/VTRT_6.png)
 ![Alt text](docs/VTRT_7.png)
+![Alt text](docs/VTRT_8.png)
