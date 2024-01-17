@@ -275,3 +275,31 @@
 ![Alt text](docs/VTRT_6.png)
 ![Alt text](docs/VTRT_7.png)
 ![Alt text](docs/VTRT_8.png)
+
+- Group classes using `namespaces`.
+- `namespace` along with class name is used to access the class
+- **static** value is shared across all instances of the class. initialize at one place the value is affected for all objects.
+- **static** methods can be called without instantiating the class.
+- **static** methods can only access static members of the class.
+- when a reference type is **null**, it means it is not pointing to any object in the heap. but it is pointing to a memory location in the stack to store variable value
+- the fallowing code compiles but throws an exception at run time
+```cs
+Employee emp = null;
+emp.GetFullName();
+```
+- `Null Conditional Operator` ?. - checks for null before accessing the member
+- `Null Coalescing Operator` ?? - returns a default value if the value is null
+- you can assign the emp to null once usage it done in dispose.
+- value type can also be null. use nullable type e.g. ``` int? age = null; ```
+- nullable value type can set to null if the value is not explicitly set.
+- `Nullable` type is a struct with two properties
+  - HasValue: true if the value is set
+  - Value: returns the value if set, otherwise throws an exception 
+- Garbage Collection - CLR manages the memory for the application.
+- CLR manages the memory for the application. removes the objects that are not used anymore. they are also known as zombie objects.
+- 
+
+![Alt text](docs/Namespace_1.png)
+![Alt text](docs/Namespace_2.png)
+![Alt text](docs/staticmethod.png)
+

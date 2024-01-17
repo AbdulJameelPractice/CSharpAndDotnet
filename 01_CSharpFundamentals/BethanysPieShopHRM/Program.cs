@@ -75,18 +75,18 @@ Console.WriteLine("Welcome to Bethany's Pie Shop HRM System!");
 //Console.WriteLine($"The double is {d}.");
 //Console.WriteLine($"The integer is {i}.");
 
-double currentYearWage = HelperUtility.CalculateYearlywage(15, 165);
+double currentYearWage = HelperUtility.CalculateYearlyWage(15, 165);
 Console.WriteLine($"Your current wage is {currentYearWage}.");
 
-double currentYearWageForAbdul = HelperUtility.CalculateYearlywage(15, 165, 1000);
+double currentYearWageForAbdul = HelperUtility.CalculateYearlyWage(15, 165, 1000);
 Console.WriteLine($"Abdul current wage is {currentYearWageForAbdul}.");
 
-double currentYearWageForAbdulJameel = HelperUtility.CalculateYearlywage(15, 165, 1000.50);
+double currentYearWageForAbdulJameel = HelperUtility.CalculateYearlyWage(15, 165, 1000.50);
 Console.WriteLine($"Abdul Jameel current wage is {currentYearWageForAbdulJameel}.");
 
 // named parameters, need to specify the parameter name and pass all the parameters
-double withNamedParameters = HelperUtility.CalculateYearlywage(numberOfHoursWorked: 165, ratePerHour: 15);
-Console.WriteLine($"withNamedParameters current wage is {withNamedParameters}.");
+double withNamedParameters = HelperUtility.CalculateYearlyWage(numberOfHoursWorked: 165, ratePerHour: 15);
+Console.WriteLine($"With NamedParameters current wage is {withNamedParameters}.");
 
 
 int a = 42;
@@ -99,6 +99,21 @@ a = 52;
 
 Console.WriteLine($"a is {a}.");
 Console.WriteLine($"aCopy is {aCopy}.");
+
+int? aValue = null;
+Console.WriteLine($"aValue is {aValue}.");
+aValue = aValue ?? 20;
+Console.WriteLine($"aValue is {aValue}.");
+
+
+List<string> aList = new List<string>();
+for (int i = 0; i < 95822121; i++)
+{
+    aList.Add(true.ToString());
+}
+
+GC.Collect();
+
 
 Console.WriteLine("Press any key to exit...");
 Console.ReadLine();

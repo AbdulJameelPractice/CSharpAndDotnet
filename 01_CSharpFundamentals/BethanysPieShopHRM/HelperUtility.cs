@@ -8,7 +8,7 @@ namespace BethanysPieShopHRM
 {
     internal class HelperUtility
     {
-        internal static double CalculateYearlywage(int ratePerHour, int numberOfHoursWorked)
+        internal static double CalculateYearlyWage(int ratePerHour, int numberOfHoursWorked)
         {
             double currentMonthWage = ratePerHour * numberOfHoursWorked;
             double currentYearWage = currentMonthWage * 12;
@@ -21,7 +21,7 @@ namespace BethanysPieShopHRM
         /// <param name="ratePerHour"></param>
         /// <param name="numberOfHoursWorked"></param>
         /// <returns></returns>
-        internal static double CalculateYearlywagewithExpressionBodiedMethod(int ratePerHour, int numberOfHoursWorked) 
+        internal static double CalculateYearlyWageWithExpressionBodiedMethod(int ratePerHour, int numberOfHoursWorked) 
             => ratePerHour * numberOfHoursWorked * 12;
 
 
@@ -32,9 +32,9 @@ namespace BethanysPieShopHRM
         /// <param name="numberOfHoursWorked"></param>
         /// <param name="bouns"></param>
         /// <returns></returns>
-        internal static double CalculateYearlywage(int ratePerHour, int numberOfHoursWorked, int bouns)
+        internal static double CalculateYearlyWage(int ratePerHour, int numberOfHoursWorked, int bouns)
         {
-            return CalculateYearlywage(ratePerHour, numberOfHoursWorked) + bouns;
+            return CalculateYearlyWage(ratePerHour, numberOfHoursWorked) + bouns;
         }
 
         /// <summary>
@@ -44,9 +44,9 @@ namespace BethanysPieShopHRM
         /// <param name="numberOfHoursWorked"></param>
         /// <param name="bouns"></param>
         /// <returns></returns>
-        internal static double CalculateYearlywage(int ratePerHour, int numberOfHoursWorked, double bouns)
+        internal static double CalculateYearlyWage(int ratePerHour, int numberOfHoursWorked, double bouns)
         {
-            return CalculateYearlywage(ratePerHour, numberOfHoursWorked) + bouns;
+            return CalculateYearlyWage(ratePerHour, numberOfHoursWorked) + bouns;
         }
     }
 }
