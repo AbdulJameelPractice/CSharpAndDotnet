@@ -106,13 +106,15 @@ aValue = aValue ?? 20;
 Console.WriteLine($"aValue is {aValue}.");
 
 
-List<string> aList = new List<string>();
-for (int i = 0; i < 95822121; i++)
-{
-    aList.Add(true.ToString());
-}
+// List<string> aList = new List<string>();
+// for (int i = 0; i < 95822121; i++)
+// {
+//     aList.Add(true.ToString());
+// }
+//
+// GC.Collect();
 
-GC.Collect();
+new CSharp10NewFeatures().PrintData();
 
 
 Console.WriteLine("Press any key to exit...");
