@@ -1,7 +1,14 @@
-﻿
- - [What is New in .NET 6 and C# 10 ](#what-is-new-in-net-6-and-c-10)
- - [What is New in .NET 7 and C# 11](#what-is-new-in-net-7-and-c-11)
- - [what-is-new-in-net-8-and-c-12](#what-is-new-in-net-8-and-c-12)
+﻿- [What is New in .NET 6 and C# 10](#what-is-new-in-net-6-and-c-10)
+  - [Unification of .NET](#unification-of-net)
+  - [What is new in Visual Studio 2022](#what-is-new-in-visual-studio-2022)
+  - [ASP.NET Core Platform 6.0](#aspnet-core-platform-60)
+  - [New Features in .NET 6 and C# 10.](#new-features-in-net-6-and-c-10)
+- [What is new in .NET 7 and C# 11](#what-is-new-in-net-7-and-c-11)
+  - [C# 11 New Features and .NET new APIs in .NET7](#c-11-new-features-and-net-new-apis-in-net7)
+    - [ASP.NET Core 7](#aspnet-core-7)
+- [What's New in ASP.NET Core 8.0](#whats-new-in-aspnet-core-80)
+  - [ASP.NET Core 8.0](#aspnet-core-80)
+
 ## What is New in .NET 6 and C# 10
 - Unification of .net platforms,
 - single BCL and single SDK
@@ -198,10 +205,135 @@ DateOnly and TimeOnly
  - .NET 7 is production ready
  - Upgrade Existing .NET Project
 
+### C# 11 New Features and .NET new APIs in .NET7
+- large list of new features
+- Generic math
+- Auto default structs
+- Extended nameof scope
+- required members
+- Raw String literals
+- UTF-8 string literals
+- List Patterns
+- File scoped types: accessed with in the same file, source code generators cannot accessed, used with class, record, enum etc
+- Generic Attributes
+- newline in string interpolation expression
+- ...many more
+
+Raw string literals
+```csharp
+public string message = """
+                            this is very long string.
+                            it spans multiple lines
+                            """;
+```
+The required Modifier
+```csharp
+internal class Person
+{
+    public required string FirstName { get; set; }
+}
+
+Person newPerson = new Person()
+        {
+            // must be set by the caller.
+            FirstName = "sample name"
+        };
+```
+#### ASP.NET Core 7
+ - Performance Improvements
+ - Additional to Blazor and minimal aps
+ - Core framework changes
+   - HTTP/2 Web Sockets
+   - HTTP/3
+   - Output Caching
+   - Rate Limiting
+   - Request decompression 
+ - **Rate Limiting**
+   - Stressing an application
+   - Accidental or on purpose
+   - sending a lot of request by script or user,
+   - can cause database to overload
+   - Rate Limiting can be used to limit number of request in given time
+   - X Requests Per Second
+   - Can be Chained
+   - 1000 request per minute but 100 per user
+   - Used to product system
+   - prevent system abuse
+   - middleware works through policies 
+   - Fixed Window Limit : request in certain amount of time
+   - Sliding Window Limit; segment of the window, 
+   - Concurrency Limit: concurrent request allowed
+   - Token bucket limit
+ - **Output Caching**
+   - In memory caching support by ASP.NET Core
+   - Distributed Cache e.g Redis
+   - Response Cache - cache server response - but might not working for all types of clients, http can prevent caching in header
+   - Output Cache:
+     - added in .NET 7
+     - Caches the HTTP Response: Stores the response from and endpoint in memory so that it is readily available for future request
+     - Helps in improving the cache
+     - Driven by server Configuration, not client
+     - Added through middleware
+     - Endpoint handler is only executing first time
+     - Cache can vary by parameter, query, request header
+     - default cache for 60 seconds, but you can set the cache expiration.
+     - SetVaryByQuery
+     - SetVaryByHeader
+     - SetVeryByHost
+     - SetVeryByRouteValue
+     - can be controlled at all controllers level
+     - or by a specific action method in a controller.
+     - SetVaryByQuery - can cache response for same type of response
+     - e.g. geographical data, active tdef for a region, whether for a location.
+     - use is carefully, requesting fresh data each time, 
+ - Changes to Minimal Apis
+   - Introduced in .net 6
+   - Micro APIs
+   - few lines of code to run the api
+   - Endpoint filters
+     - execute before and after handler
+     - can inspect and change parameters
+     - cross cutting concerns, login/validation
+   - Route Groups
+   - Typed Results
+ - What is new in .NET MAUI for .NET 7
+   - Performance improvements
+   - Feedback and bug fixes
+   - Map Control new control in .NET 7'
+   - improvements in desktop right click support, pointer gesture, context menu, window size and postion
+
+
 ![Alt TExt](docs/NewInDotNet7_1.png)
 ![Alt TExt](docs/NewInDotNet7_2.png)
 ![Alt TExt](docs/NewInDotNet7_3.png)
 ![Alt TExt](docs/NewInDotNet7_4.png)
 ![Alt TExt](docs/NewInDotNet7_5.png)
+![Alt TExt](docs/NewInDotNet7_6.png)
+![Alt TExt](docs/NewInDotNet7_7.png)
+![Alt TExt](docs/NewInDotNet7_9.png)
+![Alt TExt](docs/NewInDotNet7_10.png)
+![Alt TExt](docs/NewInDotNet7_11.png)
+![Alt TExt](docs/NewInDotNet7_12.png)
+![Alt TExt](docs/NewInDotNet7_13.png)
+![Alt TExt](docs/NewInDotNet7_14.png)
 
-## What is new in .NET 8 and C# 12
+## What's New in ASP.NET Core 8.0
+- Cloud native development
+- Improved application model features
+- Performance, tooling and internals
+- Important release and great choice for adoption
+- LTS Support support ends 2026
+- .NET 8.0 is production ready.
+- Introduces C# 12.
+- Visual studio needs to be upgraded to 17.8
+
+### ASP.NET Core 8.0
+
+
+![Alt Text](docs/NewInDotNet8_1.png)
+![Alt Text](docs/NewInDotNet8_2.png)
+![Alt Text](docs/NewInDotNet8_3.png)
+![Alt Text](docs/NewInDotNet8_4.png)
+![Alt Text](docs/NewInDotNet8_5.png)
+![Alt Text](docs/NewInDotNet8_6.png)
+![Alt Text](docs/NewInDotNet8_7.png)

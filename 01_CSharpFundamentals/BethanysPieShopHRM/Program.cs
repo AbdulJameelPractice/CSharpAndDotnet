@@ -3,7 +3,7 @@ Multiple line comment
 Welcome to Bethany's Pie Shop HRM System!
 */
 
-using BethanysPieShopHRM;
+using System.Security.Principal;using BethanysPieShopHRM;
 
 Console.WriteLine("Welcome to Bethany's Pie Shop HRM System!");
 
@@ -115,6 +115,11 @@ Console.WriteLine($"aValue is {aValue}.");
 // GC.Collect();
 
 new CSharp10NewFeatures().PrintData();
+
+new CSharrp11Features().PrintData();
+
+// cannot accessed file scoped
+// Person p;
 
 
 Console.WriteLine("Press any key to exit...");
