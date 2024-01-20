@@ -1,4 +1,7 @@
 ﻿
+ - [What is New in .NET 6 and C# 10 ](#what-is-new-in-net-6-and-c-10)
+ - [What is New in .NET 7 and C# 11](#what-is-new-in-net-7-and-c-11)
+ - [what-is-new-in-net-8-and-c-12](#what-is-new-in-net-8-and-c-12)
 ## What is New in .NET 6 and C# 10
 - Unification of .net platforms,
 - single BCL and single SDK
@@ -47,14 +50,49 @@
 - new icons and tab color
 - 64 bit version support
 
-### ASP.NET Core Platform
+### ASP.NET Core Platform 6.0
+ - new hosting model with a single program classes.
+ - you can still keep using current program and startup class though
+ - top level statement in program.cs to get rid of lot of boilerplate.
+ - support for bootstrap 5.1.
+ - New Features
+   - CSS Isolation for Core MVC and Razor Pages
+   - Async Streaming
+   - Bootstrap 5.1 support
+   - Hot Reload support for Blazor
+   - Web Assembly AOT
+   - Hybrid Apps with Blazor and MAUI
+     - hybrid apps, Native and Web UI
+     - hosting blazor application inside .NET MAUI App
+     - cross platform native app
+     - runs inside embedded native web UI
+     - web assembly not required
+     - More Capabilities on the device
+     - you can take existing blazor app and put it in .net MAUI and ship for cross platform devices.
+   - Error Boundaries
+   - Dynamic components
+   
  - ASP.NET Core MVC => ASP.NET MVC in legacy .net framework
    - Server side application
    - Generated html is generated at server and sent to client
    - ASP.NET Core 6 MVC is fully compatible with previous version
+   - no issues in updating your `asp.net core mvc` apps to .NET 6.0
+   - often used for larger enterprise applications.
  - ASP.NET Core Razor Pages
+   - Simpler approach to build apps
+   - fully compatible with previous .net core version
+   - new template
  - ASP.NET Core Blazor(client side, server side)
+   - Client side using C#
+   - lot of enhancements with every version of .NET
+   - many new features no breaking features
  - ASP.NET Core APIs
+   - create API
+   - no major issues in upgrade
+   - support for Minimal API
+ - ASP.NET Core Minimal Api's
+   - started support from .NET 6
+   - just a few lines of code.
 
 ### New Features in .NET 6 and C# 10.
 - C# 10 new feature
@@ -124,8 +162,46 @@ DateOnly and TimeOnly
 
 
 ## What is new in .NET 7 and C# 11
+ - Released at the end of 2022.
+ - STS Release
+ - Single BCL and SDK - only .NET 
+ - Cross platform native UI  - .NET MAUI
+ - Cross platform Web UI  - Blazor
+ - Performance improvements in .NET 7
+ - ARM64 improvements
+ - Native AOT
+ - On Stack Replacement (OSR)
+ - C# 11 support - new version of the language
+ - .NET APIs improvements
+   - microseconds and nano seconds added to DateTime
+   - Microsoft.Extensions.Caching improvements
+   - System.Formats.Tar
+   - System.Text.Json Changes
+ - ASP.NET Core Improvements - most changed
+   - Core Framework changes, rate limiting, output caching
+   - Minor changes to ASP.NET Core MVC/Razor Pages
+   - Minimal APIS additions
+   - Blazor - bigger changes
+ - .NET MAUI Changes
+   - Performance
+   - Desktop Targeting improvements, tooltip, content menu, right controls
+   - New Controls, map etc
+   - Blazor Hybrid
+ - Tooling Improvements
+   - Azure Support, you can upgrade azure functions, azure apps to this version
+   - Container Support
+   - Improvements in hot reload
+   - CLI Improvements
+ - Upgrade Assistant to upgrade to latest .NET Versions
+ - can help with migration from .NET Framework to Latest .NET
+ - STS - 6 months after .NET 8 release
+ - .NET 7 is production ready
+ - Upgrade Existing .NET Project
 
-
-
+![Alt TExt](docs/NewInDotNet7_1.png)
+![Alt TExt](docs/NewInDotNet7_2.png)
+![Alt TExt](docs/NewInDotNet7_3.png)
+![Alt TExt](docs/NewInDotNet7_4.png)
+![Alt TExt](docs/NewInDotNet7_5.png)
 
 ## What is new in .NET 8 and C# 12
