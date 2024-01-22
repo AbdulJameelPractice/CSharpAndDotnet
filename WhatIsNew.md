@@ -328,7 +328,36 @@ Person newPerson = new Person()
 - Visual studio needs to be upgraded to 17.8
 
 ### ASP.NET Core 8.0
+ - updates to Core Platform, tooling and internals
+ - Blazor and UI development improvements
+ - API Development
+ - Performance improvements - improve your app performance by simply by upgrading to .NET 8.0
+ - Azure support
+   - Azure Functions
+   - Azure App service
+   - Container Apps
+   - Static websites
+ - Upgrading to .NET 8.0 is painless for projects build on recent versions such as .NET 6.
+ - No Major Changes to the ASP.NET Core Project Structure
+ - Microsoft has a supporting tool known as "Upgrade Assistant" that can help you to upgrade legacy .NET framework project to recent 8.0
 
+#### Updates to Core Platform
+ - Native AOT
+ - Response Management
+ - Caching - 
+   - Stores the response from an endpoint in memory so that it is readily available for future request
+   - can cache the response  in memory or in redis cache - added in .NET 8
+   - Redis: A popular open source in memory data store that can be used for distributed caching, message brokering and storing data.
+   - in memory in .net 7 but added support for redis in .NET 8
+ - Debugging
+
+#### API Improvements
+ - .http file support
+ - dependency injection
+ - model binding
+ - Antiforgery tokens
+ - Razor component support 
+ - identify system
 
 ![Alt Text](docs/NewInDotNet8_1.png)
 ![Alt Text](docs/NewInDotNet8_2.png)
@@ -337,3 +366,10 @@ Person newPerson = new Person()
 ![Alt Text](docs/NewInDotNet8_5.png)
 ![Alt Text](docs/NewInDotNet8_6.png)
 ![Alt Text](docs/NewInDotNet8_7.png)
+![Alt Text](docs/NewInDotNet8_8.png)
+![Alt Text](docs/NewInDotNet8_9.png)
+![Alt Text](docs/NewInDotNet8_10.png)
+![Alt Text](docs/NewInDotNet8_11.png)
+![Alt Text](docs/NewInDotNet8_12.png)
+![Alt Text](docs/NewInDotNet8_13.png)
+![Alt Text](docs/NewInDotNet8_14.png)
