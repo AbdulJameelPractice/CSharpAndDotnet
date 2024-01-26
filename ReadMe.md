@@ -298,11 +298,102 @@ emp.GetFullName();
   - Value: returns the value if set, otherwise throws an exception 
 - Garbage Collection - CLR manages the memory for the application.
 - CLR manages the memory for the application. removes the objects that are not used anymore. they are also known as zombie objects.
-- 
+
 
 ![Alt text](docs/Namespace_1.png)
 ![Alt text](docs/Namespace_2.png)
 ![Alt text](docs/staticmethod.png)
+
+### OOPS in C#
+- business model is updated to classes and object
+- re-usability, easy to read code and maintenance for longer run
+- Focus on classes and objects
+- Classes, Objects, methods, properties
+- The Four pillars of OO
+  - Encapsulation
+    - information is contained inside the object
+    - only certain information is exposed
+    - Hides internal implementation and data
+    - only required data is exposed
+    - dont exposed car engine is working, but headlight is exposed
+    - Avoid data corruption
+    - public and private
+    - access modifiers should come to your mind when thinking bout encapsulation
+    - if you use private set inside a property only that class can set the property field.
+    - you can still get the value but cannot set the value.
+    - constructor should update the property instead of file so that any validation logic can execute.
+    - you can use protected set if you want value to be set in derived type.
+```csharp
+public class Employee
+{
+    public string firstNamee;
+    public int age;
+    public Employee(string name, int ageValue)
+        {
+            //.....
+        }
+}
+
+Employee emp = new Employee("test",20);
+// there is no validation while setting.
+emp.firstNamee="renamed";
+// firstNamee is exposed
+
+// fixed with abstraction
+public class Employee
+{
+    private string firstNamee;
+    private int age;
+    public Employee(string name, int ageValue)
+        {
+            //.....
+        }
+    public string FirstName 
+    {
+        get
+        {
+            return firstNamee;
+        }
+        set
+        {
+            // you can include logic to validate if firstNamee is set correct value.
+            firstNamee=value;
+        }
+    }
+}
+
+```
+  - Abstraction
+    - Abstract Representation of the program
+    - exposes simple interface to the caller.
+    - Gas pedal is an abstraction, how much gas or petrol is the local complexity of the system, need not be exposed
+    - only mechanism useful for other objects are revealed
+    - implementation is hidden
+    - makes changes becomes easier
+    - complexity of the object is not expose
+  - Inheritance
+    - classes can reuse functionality from others
+    - Relation between classes
+    - lower development time because of re-usability
+    - derived class can access public and protected type of the base class.
+    - protected are access in inheriting type but not outside of the class
+    - inheritance bring a is-A relationship, Manager is a employee
+    - composition: Has a relation employee has address, address object is part of the employee object
+  - Polymorphism
+    - Share behaviors but can be in more than one form
+    - Child can be used like its parent
+    - Correct method will be used based on the execution.
+    - override: hides the base class type, you can add a modified version to your own subtype
+    - a base class method with a new implementation.
+    - uses virtual and override keywords
+    - adds the ability to create an object of subobject and assign it to parent object.
+    - 
+
+![Alt Text](/docs/OOPS_1.png)
+![Alt Text](/docs/OOPS_2.png)
+![Alt Text](/docs/OOPS_3.png)
+![Alt Text](/docs/OOPS_4.png)
+![Alt Text](/docs/OOPS_5.png)
 
 ## What is New in .NET 6/7/8 
 [What is New in .NET 6/7/8](WhatIsNew.md)

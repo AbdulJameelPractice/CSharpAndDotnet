@@ -121,6 +121,12 @@ new CSharrp11Features().PrintData();
 // cannot accessed file scoped
 // Person p;
 
+MathOperations<int> mathOperations = new();
+
+var addedValue = mathOperations.Add(39, 30);
+var addedDoubleValue = new MathOperations<double>().Add(2.9,1.23);
+Console.WriteLine(addedValue);
+Console.WriteLine(addedDoubleValue);
 
 Console.WriteLine("Press any key to exit...");
 Console.ReadLine();

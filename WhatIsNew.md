@@ -8,6 +8,8 @@
     - [ASP.NET Core 7](#aspnet-core-7)
 - [What's New in ASP.NET Core 8.0](#whats-new-in-aspnet-core-80)
   - [ASP.NET Core 8.0](#aspnet-core-80)
+    - [Updates to Core Platform](#updates-to-core-platform)
+    - [API Improvements](#api-improvements)
 
 ## What is New in .NET 6 and C# 10
 - Unification of .net platforms,
