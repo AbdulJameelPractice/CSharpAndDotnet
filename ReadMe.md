@@ -12,6 +12,7 @@
     - [Classes and Objects in C#](#classes-and-objects-in-c)
     - [Value Types and Reference Types](#value-types-and-reference-types)
   - [What is New in .NET 6/7/8](#what-is-new-in-net-678)
+  - [C# Advance Features Course](CSharp_AdvanceFeatures.md)
 
 
  C# is the most popular language to build .NET applications today. It’s part of the .NET ecosystem, which offers developers all the tools, languages and frameworks to create all types of applications including web, cloud, desktop and mobile.

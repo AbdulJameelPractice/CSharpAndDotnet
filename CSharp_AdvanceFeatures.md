@@ -10,6 +10,9 @@
 - Delegates allow you to
   reference a method and later
   invoke it
+- A delegate is simply a method
+  reference and has a very small
+  memory footprint
 - When to use delegates
   - When you need a callback
     Commonly used in the past when performing background work
@@ -86,7 +89,131 @@ delegate TResult Func<T, TResult>(T input);
 
 Func<Order, bool> func = SendMessageToWarehouse;
 Func<Order, bool> func = (order) => order.IsReadyForShipment
+    
+void Process(OrderInitialized onInitialized)
+    
+// Func and Action in the method. 
+void Process(Func<Order, bool> onInitialized,
+Action callback)
+{
+var result = onInitialized?.Invoke();
+callback?.Invoke();
+}
+{ ... }
+
+Process(SendMessageToWarehouse);
+
+Process(order => order.IsReadyForShipment);    
 ```
 - delegate is simply a method
 reference and has a very small
 memory footprint
+- Lambda Makes the code easier to read. The logic is defined in-place and the intent is clearly
+  communicated. Can capture local variables
+- **Event**
+- The event keyword is used to declare an event in a publisher class.
+- Publisher
+  The class that owns the event
+  and is in charge of raising it
+- Subscriber
+  The classes that subscribe to
+  events exposed by the publisher
+- An event delegate is always
+  void and an event never
+  returns a value
+- When you add the `event`
+  keyword before a delegate, it
+  `can only be invoked from that
+  class only`
+- The publisher should never
+  care about what the
+  subscriber does when the
+  event is raised
+- Don’t forget to unsubscribe when you are done with the event!
+- The publisher owns the invocation.
+  It cannot be invoked by anyone else
+- Use a delegate that conforms with the .NET guidelines.
+  This is EventHandler or EventHandler<T>
+- Subscribers may be attached for a very long time.
+  This is especially true in UI applications.
+- Different parts of the system
+  may subscribe to the event
+  and handle it in different
+  ways
+- Event handlers are delegates
+  and execute on the same
+  thread as they were called on
+- Avoid lambdas for event handlers
+- Event handler leaks can happen in any type of application.
+- Always unsubscribe from events when the subscribe is no longer relevant.
+```csharp
+// EventHandler delegate to be used for event
+// it returns void and has two parameters:
+// Inherit from EventArgs to create a class that represents the event data.
+
+class OrderProcessor
+{
+   public event EventHandler OrderCreated;
+}
+
+var processor = new OrderProcessor();
+processor.OrderCreated += Processor_OrderCreated;
+    
+// dont forget to unsubscribe
+processor.OrderCreated -= Processor_OrderCreated;
+
+// Event with Event Data
+public event EventHandler<OrderCreatedEventArgs> OrderCreated;
+```
+Event with EventData
+```csharp
+class OrderProcessor
+{
+    public event EventHandler<OrderCreatedEventArgs> OrderCreated;
+    protected virtual void OnOrderCreated(OrderCreatedEventArgs args)
+    {
+        OrderCreated?.Invoke(this, args);
+    }
+}
+```
+### Extension Methods
+- How would you add methods
+  to a class you do not own? - Extension Methods
+- Enable you to "add" methods to existing types without creating a new
+  derived type, recompiling, or otherwise modifying the original type
+- Looks like an instance method
+  Defined in a completely different library than the original type
+- Lets you add method overloads
+  You can create methods with the same names as the type you extend
+  as long as they have different parameters
+- Only for types you can’t control
+  Don’t introduce extension methods for types in your project, or types
+  that you could otherwise change
+
+```csharp
+namespace WarehouseManagementSystem.Domain.Extensions
+{
+public static class OrderExtensions
+    {
+    public static string GenerateReport(this Order order)
+        {
+            return $”This is the report for {order.OrderNumber}”;
+        }
+    }
+}
+
+using namespace WarehouseManagementSystem.Domain.Extensions;
+Order order = new();
+var report = order.GenerateReport();
+```
+- Extension methods can only
+  access public properties and
+  methods on the instance
+- Extension methods have the
+  lowest priority!
+- The compiler will never choose
+  an extension method if a better
+  alternative exists on the type
+- Language-Integrated Query (**LINQ**) is the name for a set of technologies
+  based on the integration of query capabilities directly into the C#
+  language
