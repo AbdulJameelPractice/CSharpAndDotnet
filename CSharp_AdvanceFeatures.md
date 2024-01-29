@@ -261,14 +261,36 @@ The type of each property is inferred by the compiler
   number of elements
 - The tuples feature provides concise syntax to group multiple data
   elements in a lightweight data structure
-- ```csharp var group = (order.OrderNumber, order.LineItems);```
+
+```csharp 
+ var group = (order.OrderNumber, order.LineItems);
+```
 - Tuples are strongly typed
 - Tuples are immutable
 - Tuple 
   - Value type 
   - Values stored in fields 
   - Not immutable
+  - not readonly, caller can change the vaLue
 - Anonymous Type 
   - Reference type 
   - Values stored in properties with backing fields 
   - Read-only
+  - caller is not allowed to change the values
+
+### DeConstructor
+- A de-constructor is a method that
+  deconstructs an object into
+  multiple values
+```csharp
+public class Order
+{
+  public void Deconstruct(out decimal total, out bool ready)
+ {
+  total = Total;
+  ready = IsReadyForShipment;
+  }
+}
+var order = new Order();
+var (orderTotal, isReady) = order;
+```

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Text.Json;
 using WarehouseManagementSystem.Domain;
 
 namespace WarehouseManagementSystem.Business
@@ -24,40 +25,45 @@ namespace WarehouseManagementSystem.Business
             orderAction?.Invoke(order);
             onOrderProcessed?.Invoke();
             // How do I produce a shipping label?
-            
-            ItemProcessedEvent?.Invoke(this,EventArgs.Empty);
-            
-            ItemProcessedAgain?.Invoke(this,new CustomArgs());
+
+            ItemProcessedEvent?.Invoke(this, EventArgs.Empty);
+
+            ItemProcessedAgain?.Invoke(this, new CustomArgs());
         }
 
         public void Process(IEnumerable<Order> orders)
         {
             (var e, var f, var g) = new Tuple<int, int, int>(10, 20, 30);
-            
+
             var summaries = orders.Select(order => new
             {
                 Order = order.OrderNumber,
                 Items = order.LineItems.Count(),
                 Total = order.LineItems.Sum(item => item.Price)
-                
             });
             
-            
-
             var firstSummary = summaries.First();
 
-            var firstSummaryWithTax = firstSummary with { Total = firstSummary.Total * 1.08m};
+            var firstSummaryWithTax = firstSummary with { Total = firstSummary.Total * 1.08m };
 
             var orderSummaries = summaries.OrderBy(summary => summary.Items);
         }
 
-        public void ProcessTuple(Order order)
+        public (Guid OrderNumber, IEnumerable<Item> Items, decimal Sum) ProcessTuple(Order order)
         {
+            Console.WriteLine("process tuple");
             var group = (order.OrderNumber, order.LineItems, Sum: order.LineItems.Sum(p => p.Price));
             Console.WriteLine(group.OrderNumber);
+
+            var stringOfOrderTuple = System.Text.Json.JsonSerializer.Serialize(group,
+                options: new JsonSerializerOptions()
+                {
+                    IncludeFields = true
+                });
+            return group;
         }
     }
-    
+
     public class CustomArgs
     {
         public Order order { get; set; }

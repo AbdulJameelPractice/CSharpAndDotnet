@@ -16,4 +16,9 @@ public static class OrderExtension
 
         return false;
     }
+    
+    public static void Deconstruct(this Order order, out Guid orderNumber)
+    {
+        orderNumber = order.OrderNumber;
+    }
 }

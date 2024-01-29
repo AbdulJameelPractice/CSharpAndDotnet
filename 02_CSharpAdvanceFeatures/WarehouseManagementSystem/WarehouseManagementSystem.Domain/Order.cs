@@ -12,6 +12,13 @@
         {
             OrderNumber = Guid.NewGuid();
         }
+        
+        public void Deconstruct(out Guid orderNumber, out IEnumerable<Item> items, out decimal sum)
+        {
+            orderNumber = OrderNumber;
+            items = LineItems;
+            sum = LineItems.Sum(p => p.Price);
+        }
     }
 
     public class ProcessedOrder : Order { }
