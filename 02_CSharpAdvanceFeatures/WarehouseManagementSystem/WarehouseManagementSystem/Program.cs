@@ -59,6 +59,13 @@ public class Program
         Console.WriteLine(instance.Total);
         Console.WriteLine(instance.Equals(secondInstance));
         Console.WriteLine(instance == secondInstance);
+
+        Console.WriteLine("Record- Start: -----------------");
+        var customer = new Customer("John", "Doe");
+        var customer1 = new Customer("John", "Doe");
+        Console.WriteLine(customer);
+        Console.WriteLine(customer == customer1);
+        Console.WriteLine("Record- End: -----------------");
     }
 
     public void ProcessDictionary(Dictionary<string, int> dictionary)

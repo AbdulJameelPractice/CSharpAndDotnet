@@ -294,3 +294,73 @@ public class Order
 var order = new Order();
 var (orderTotal, isReady) = order;
 ```
+
+### Records
+- Record can be used instead of
+  a class
+  If the purpose is to represent
+  data
+- Records are immutable
+- Less code!
+  Records come with generated
+  code that you normally have to
+  write yourself
+- Records can be defined with a
+  primary constructor
+- Records can have a body
+  where you define other
+  properties, methods and
+  fields
+- How is this any better than
+  creating a traditional class?
+  There’s lots of code generated!
+- Records come with value
+  based equality
+- Records let you focus on the
+  important pieces and skip all
+  the boilerplate code
+- You cannot use records with
+  Entity Framework
+- Use Record When you want to represent
+  data
+- Not for classes that are meant
+  for business logic
+- If a property uses a record
+  you will get value based
+  equality for that as well
+- Records are suitable for
+  representing data! Do not use it for business logic
+- Add optional parameters
+  instead of multiple
+  constructors
+
+```csharp
+record Customer();
+record class Customer();
+record struct Customer();
+// record with primary constructor
+record Customer(string Firstname, string Lastname);
+
+Customer customer = new("Filip", "Ekberg");
+Console.WriteLine(customer);
+
+
+public record Order(
+[property: JsonPropertyName("total")]
+decimal Total = 0,
+[property: JsonIgnore]
+ShippingProvider ShippingProvider = default,
+[property: JsonIgnore]
+IEnumerable<Item> LineItems = default,
+bool IsReadyForShipment = true);
+
+record Customer(string Firstname, string Lastname);
+var first = new Customer("Filip", "Ekberg");
+var second = new Customer("Filip", "Ekberg");
+first == second; // true
+
+record Customer(string Firstname, string Lastname)
+{
+    public string Fullname => $"{Firstname} {Lastname}";
+}
+```
