@@ -1,3 +1,5 @@
-﻿namespace WarehouseManagementSystem.Domain;
+﻿using System.Text.Json.Serialization;
 
-public record Customer(string FirstName,string LastName);
+namespace WarehouseManagementSystem.Domain;
+
+public record Customer([property:JsonPropertyName("firstName")] string FirstName,[property:JsonPropertyName("lastName")] string LastName);
