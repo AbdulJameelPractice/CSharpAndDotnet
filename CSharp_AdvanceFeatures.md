@@ -1,9 +1,11 @@
-﻿
-<!-- TOC -->
-    * [Delegate](#delegate)
-    * [Extension Methods](#extension-methods)
-    * [Anonymous Types](#anonymous-types)
-<!-- TOC -->
+﻿- [Delegate](#delegate)
+- [Extension Methods](#extension-methods)
+- [Anonymous Types](#anonymous-types)
+- [Tuples](#tuples)
+- [DeConstructor](#deconstructor)
+- [Records](#records)
+
+
 ### Delegate
 - “A delegate is a type that represents references to methods with a
   particular parameter list and return type"
