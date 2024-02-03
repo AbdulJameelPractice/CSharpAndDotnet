@@ -13,7 +13,7 @@ Asynchronous Programming in C#
   - you cannot make the method async by just adding async keyword, you need to use await keyword inside the method
   - marking a method as async introduces the capability of using the await keyword to leverage the asynchronous principles.
   - `async` keyword is used to define an asynchronous method
-  - calling `Result` or `Wait` may cause deadlocks
+  - calling `Result` or `Wait()` may cause deadlocks
   - Use `await` with a Task to retrieve the result and to validate it completed successfully.
   - `await` keyword is used to pause the execution of the method until the awaited task completes.
   - await keyword gives you a potential result
@@ -22,12 +22,84 @@ Asynchronous Programming in C#
   - The await keyword will re-throw exceptions that occurs inside the Task.
   - Using async and await in ASP.NET means the web server can handler other requests, without blocking other requests.
   - Only use `async void` for event-handlers. `async void` is evil and avoid it all cost.
-  - 
+  - Exception occuring in an async void method cannot be caught. app might crash
 
 ```csharp
 // This is a blocking call, blocks the thread until result is available.
-        var content = await response.Result.Content.ReadAsStringAsync();
+var content = await response.Result.Content.ReadAsStringAsync();
 ```
 
+![Alt Text](../docs/AsyncProgramming_1.png)
+![Alt Text](../docs/AsyncProgramming_2.png)
+![Alt Text](../docs/AsyncProgramming_3.png)
+![Alt Text](../docs/AsyncProgramming_4.png)
+![Alt Text](../docs/AsyncProgramming_5.png)
+![Alt Text](../docs/AsyncProgramming_6.png)
+![Alt Text](../docs/AsyncProgramming_7.png)
+
+
 ### Task Parallel Library
-TPL is used for cpu bound operations and independent chunks of data. 
+- TPL is used for cpu bound operations and independent chunks of data. 
+- Task from the TPL represent a single async operation.
+- Task
+  - Execute work on a different thread
+  - Get the result from the async operation
+  - Subscribe to when the operation is done by introducing a continuation
+  - it can tell you if there was an exception
+  - it can tell you if the operation was cancelled
+  - Generic and NonGeneric Task.Run
+  - Updating UI elements can only be done from the UI Thread.
+  - background thread cannot update UI elements directly.
+  - A task can have multiple continuations
+  - `async and await` is much more readable and maintainable than `Task.Run` and `ContinueWith`
+  - The continuation executes asynchronously on a different thread.
+
+```csharp
+Task.Run(() => { /* Heavy operation */ });
+Task.Run(SomeMethod);
+
+// continuation with task
+        try
+        {
+            // we are avoiding block of ui thread to load file once the file is loaded we will update the ui
+            //Stocks.ItemsSource = await GetStocksFromFile();
+            var loadLinesTask = Task.Run(() =>
+            {
+                var lines = File.ReadAllLines("StockPrices_Small.csv");
+                return lines;
+            });
+
+            var faultedTask = loadLinesTask.ContinueWith(
+                (task) => { Dispatcher.Invoke(() => { Notes.Text = task?.Exception?.InnerException?.Message; }); },
+                TaskContinuationOptions.OnlyOnFaulted);
+
+            var processedTask = loadLinesTask.ContinueWith((completedtask) =>
+            {
+                var data = new List<StockPrice>();
+                foreach (var line in completedtask.Result.Skip(1))
+                {
+                    var price = StockPrice.FromCSV(line);
+                    data.Add(price);
+                }
+
+                return data;
+            }, TaskContinuationOptions.OnlyOnRanToCompletion);
+
+            var _= processedTask.ContinueWith(p =>
+            {
+                // add below code inside a disptcher
+                Dispatcher.Invoke(() =>
+                {
+                    // previous task is not cancelled
+                    if (p.IsCanceled == false)
+                        Stocks.ItemsSource = p.Result;
+                    AfterLoadingStockData();
+                });
+            });
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine(exception);
+            Notes.Text = exception.Message;
+        }
+```
