@@ -53,7 +53,10 @@ var content = await response.Result.Content.ReadAsStringAsync();
   - A task can have multiple continuations
   - `async and await` is much more readable and maintainable than `Task.Run` and `ContinueWith`
   - The continuation executes asynchronously on a different thread.
-
+- Loading the data in parallel by performing multiple async operations at the same time.
+- Don’t use List<T> for parallel operations it is not thread-safe.
+- Use ConcurrentBag<T> for parallel operations.
+- 
 ```csharp
 Task.Run(() => { /* Heavy operation */ });
 Task.Run(SomeMethod);
@@ -102,4 +105,66 @@ Task.Run(SomeMethod);
             Console.WriteLine(exception);
             Notes.Text = exception.Message;
         }
+```
+
+Cancellation
+```csharp
+if (_cancellationTokenSource is not null)
+        {
+            _cancellationTokenSource.Cancel();
+            _cancellationTokenSource.Dispose();
+            _cancellationTokenSource = null;
+
+            Search.Content = "Search";
+            return;
+        }
+
+        try
+        {
+            _cancellationTokenSource = new CancellationTokenSource();
+            _cancellationTokenSource.Token.Register(() => { Notes.Text = "Request Cancelled"; });
+            Search.Content = "Cancel";
+
+            // we are avoiding block of ui thread to load file once the file is loaded we will update the ui
+            var items = await GetStocksFromFile(_cancellationTokenSource.Token);
+
+            Stocks.ItemsSource = items;
+            AfterLoadingStockData(items != null ? items.Count() : 0);
+
+            _cancellationTokenSource.Dispose();
+            _cancellationTokenSource = null;
+            Search.Content = "Search";
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine(exception);
+            Notes.Text = exception.Message;
+        }
+```
+
+loads items in a sequnce of the result
+```csharp
+foreach (var identifier in identifiers)
+            {
+                var loadTask = stockService.GetStockPricesFor(identifier, _cancellationTokenSource.Token);
+
+                loadTask = loadTask.ContinueWith((completedTask) =>
+                {
+                    var aFewStocks = completedTask.Result.Take(5);
+                    foreach (var stock in aFewStocks)
+                    {
+                        allStocks.Add(stock);
+                    }   
+                    
+                    // updating UI on the main thread
+                    Dispatcher.Invoke(() => { Stocks.ItemsSource = allStocks.ToArray(); });
+                    
+                    return aFewStocks;
+                });
+
+                
+                loadTasks.Add(loadTask);
+            }
+
+            await Task.WhenAll(loadTasks);
 ```

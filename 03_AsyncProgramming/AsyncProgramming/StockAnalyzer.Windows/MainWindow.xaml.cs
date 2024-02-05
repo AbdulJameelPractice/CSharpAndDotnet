@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using Newtonsoft.Json;
 using StockAnalyzer.Core.Domain;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using StockAnalyzer.Core;
+using StockAnalyzer.Core.Services;
+using StockPrice = StockAnalyzer.Core.Domain.StockPrice;
 
 namespace StockAnalyzer.Windows;
 
@@ -52,34 +55,65 @@ public partial class MainWindow : Window
             return;
         }
 
+        var allStocks = new ConcurrentBag<StockPrice>();
         try
         {
             _cancellationTokenSource = new CancellationTokenSource();
+            _cancellationTokenSource.Token.Register(() => { Notes.Text = "Request Cancelled"; });
             Search.Content = "Cancel";
 
-            // we are avoiding block of ui thread to load file once the file is loaded we will update the ui
-            var items  = await GetStocksFromFile(_cancellationTokenSource.Token);
+            var identifiers = StockIdentifier.Text.Split(',', ' ');
+            var stockService = new StockService();
+            
+            var loadTasks = new List<Task<IEnumerable<StockPrice>>>();
+            foreach (var identifier in identifiers)
+            {
+                var loadTask = stockService.GetStockPricesFor(identifier, _cancellationTokenSource.Token);
 
-            Stocks.ItemsSource = items;
-            AfterLoadingStockData(items.Count());
+                loadTask = loadTask.ContinueWith((completedTask) =>
+                {
+                    var aFewStocks = completedTask.Result.Take(5);
+                    foreach (var stock in aFewStocks)
+                    {
+                        allStocks.Add(stock);
+                    }   
                     
-            _cancellationTokenSource.Dispose();
-            _cancellationTokenSource = null;
-            Search.Content = "Search";
-            
-            
+                    // updating UI on the main thread
+                    Dispatcher.Invoke(() => { Stocks.ItemsSource = allStocks.ToArray(); });
+                    
+                    return aFewStocks;
+                });
+
+                
+                loadTasks.Add(loadTask);
+            }
+
+            await Task.WhenAll(loadTasks);
         }
         catch (Exception exception)
         {
             Console.WriteLine(exception);
             Notes.Text = exception.Message;
         }
+        finally
+        {
+            AfterLoadingStockData(allStocks?.Count() ?? 0);
+            
+            _cancellationTokenSource?.Dispose();
+            _cancellationTokenSource = null;
+            Search.Content = "Search";
+        }
     }
 
-    public async Task<IEnumerable<StockPrice>> GetStocksFromFile(CancellationToken cancellationToken)
+    async Task<IEnumerable<StockPrice>> GetStocksFromFile(CancellationToken cancellationToken)
     {
         return await Task.Run(() =>
         {
+            if (cancellationToken.IsCancellationRequested)
+            {
+                return new List<StockPrice>();
+            }
+
             var lines = File.ReadAllLines("StockPrices_Small.csv");
             var data = new List<StockPrice>();
             foreach (var line in lines.Skip(1))
@@ -88,6 +122,7 @@ public partial class MainWindow : Window
                 {
                     break;
                 }
+
                 var price = StockPrice.FromCSV(line);
                 data.Add(price);
             }
