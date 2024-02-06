@@ -56,6 +56,7 @@ var content = await response.Result.Content.ReadAsStringAsync();
 - Loading the data in parallel by performing multiple async operations at the same time.
 - Don’t use List<T> for parallel operations it is not thread-safe.
 - Use ConcurrentBag<T> for parallel operations.
+- use mock classes to test initially without data from backend or api or database or filesystem.
 - 
 ```csharp
 Task.Run(() => { /* Heavy operation */ });
@@ -168,3 +169,53 @@ foreach (var identifier in identifiers)
 
             await Task.WhenAll(loadTasks);
 ```
+
+### async and await advance topics
+- Async Streams and Disposables
+  - allow us to work with stream of data in an asynchronous manner.
+  - process item as they arrive
+  - `IAsyncEnumerable<T>` an enumerator that provides async iteration over values of a specified type.
+  - using `yield return` with the IAsyncEnumerable<T> will signal to the iterator using this enumerator that it has an item to process.
+  - `await foreach` is used to iterate over the items in the IAsyncEnumerable<T>
+- Asynchronous Disposable
+  - cleanup resources asynchronously by implementing `IAsyncDisposable` interface.
+  - `await using` statement is used to dispose the resources asynchronously.
+```csharp
+var service = new StockDiskStreamService();
+          var enumerator = service.GetAllStockPrices();
+
+          await foreach (var price in enumerator.WithCancellation(CancellationToken.None))
+          {
+              if(identifiers.Contains(price.Identifier))
+              {
+                  data.Add(price);
+              }
+          }
+
+
+await using var service = new StockDiskStreamService();
+
+```
+### Implications of async and await
+- `async` and `await` are not free, they have a cost with statement
+- a deadlock may occur if two threads depend on each other to complete and one is blocked.
+ - .wait() and .result() are blocking calls and should be avoided.
+ - The state machine runs on the calling thread.
+
+![Alt Text](../docs/AsyncProgramming_8.png)
+![Alt Text](../docs/AsyncProgramming_9.png)
+deadlock sample, the state machine run on the same thread UI and that we are blocking
+![Alt Text](../docs/AsyncProgramming_10.png)
+![Alt Text](../docs/AsyncProgramming_11.png)
+fix for blocking the statemachine
+![Alt Text](../docs/AsyncProgramming_12.png)
+
+### Asynchronous Programming advance concepts
+- progress reporting can be done with the use of `IProgress<T>` interface.
+- TaskCompletionSource<T> “Represents the producer side of a Task<T> unbound to a delegate, providing access to the consumer side through the Task property
+- attached and detached child tasks
+- Task.Factory.StartNew() is not recommended to use, use Task.Run() instead.
+- using Task.Run() is in most situations the best option for starting a new task.
+- Tdef handler uses the batch processing to process the data in chunks, listen to backend notification and send it to the client.
+![Alt Text](../docs/AsyncProgramming_13.png)
+![Alt Text](../docs/AsyncProgramming_14.png)

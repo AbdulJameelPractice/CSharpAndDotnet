@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using Newtonsoft.Json;
 using StockAnalyzer.Core.Domain;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -31,64 +32,32 @@ public partial class MainWindow : Window
         InitializeComponent();
     }
 
-
-    private async void Search_Click(object sender, RoutedEventArgs e)
+       private async void Search_Click(object sender, RoutedEventArgs e)
     {
         BeforeLoadingStockData();
 
-        // using var client = new HttpClient();
-        // var response = await client.GetAsync($"{API_URL}/{StockIdentifier.Text}");
-        //
-        // var content = await response.Content.ReadAsStringAsync();
-        //
-        // var data = JsonConvert.DeserializeObject<IEnumerable<StockPrice>>(content);
-        //
-        // Stocks.ItemsSource = data;
-
-        if (_cancellationTokenSource is not null)
-        {
-            _cancellationTokenSource.Cancel();
-            _cancellationTokenSource.Dispose();
-            _cancellationTokenSource = null;
-
-            Search.Content = "Search";
-            return;
-        }
-
-        var allStocks = new ConcurrentBag<StockPrice>();
+        
         try
         {
-            _cancellationTokenSource = new CancellationTokenSource();
-            _cancellationTokenSource.Token.Register(() => { Notes.Text = "Request Cancelled"; });
-            Search.Content = "Cancel";
+        
+          var identifiers = StockIdentifier.Text.Split(',', ' ');
+          var data = new ObservableCollection<StockPrice>();
 
-            var identifiers = StockIdentifier.Text.Split(',', ' ');
-            var stockService = new StockService();
-            
-            var loadTasks = new List<Task<IEnumerable<StockPrice>>>();
-            foreach (var identifier in identifiers)
-            {
-                var loadTask = stockService.GetStockPricesFor(identifier, _cancellationTokenSource.Token);
 
-                loadTask = loadTask.ContinueWith((completedTask) =>
-                {
-                    var aFewStocks = completedTask.Result.Take(5);
-                    foreach (var stock in aFewStocks)
-                    {
-                        allStocks.Add(stock);
-                    }   
-                    
-                    // updating UI on the main thread
-                    Dispatcher.Invoke(() => { Stocks.ItemsSource = allStocks.ToArray(); });
-                    
-                    return aFewStocks;
-                });
 
-                
-                loadTasks.Add(loadTask);
-            }
+          Stocks.ItemsSource = data;
 
-            await Task.WhenAll(loadTasks);
+          var service = new StockDiskStreamService();
+          var enumerator = service.GetAllStockPrices();
+
+          await foreach (var price in enumerator.WithCancellation(CancellationToken.None))
+          {
+              if(identifiers.Contains(price.Identifier))
+              {
+                  data.Add(price);
+              }
+          }
+
         }
         catch (Exception exception)
         {
@@ -97,13 +66,83 @@ public partial class MainWindow : Window
         }
         finally
         {
-            AfterLoadingStockData(allStocks?.Count() ?? 0);
-            
-            _cancellationTokenSource?.Dispose();
-            _cancellationTokenSource = null;
-            Search.Content = "Search";
+            AfterLoadingStockData(0);
         }
     }
+
+       // TPL use case
+    // private async void Search_Click(object sender, RoutedEventArgs e)
+    // {
+    //     BeforeLoadingStockData();
+    //
+    //     // using var client = new HttpClient();
+    //     // var response = await client.GetAsync($"{API_URL}/{StockIdentifier.Text}");
+    //     //
+    //     // var content = await response.Content.ReadAsStringAsync();
+    //     //
+    //     // var data = JsonConvert.DeserializeObject<IEnumerable<StockPrice>>(content);
+    //     //
+    //     // Stocks.ItemsSource = data;
+    //
+    //     if (_cancellationTokenSource is not null)
+    //     {
+    //         _cancellationTokenSource.Cancel();
+    //         _cancellationTokenSource.Dispose();
+    //         _cancellationTokenSource = null;
+    //
+    //         Search.Content = "Search";
+    //         return;
+    //     }
+    //
+    //     var allStocks = new ConcurrentBag<StockPrice>();
+    //     try
+    //     {
+    //         _cancellationTokenSource = new CancellationTokenSource();
+    //         _cancellationTokenSource.Token.Register(() => { Notes.Text = "Request Cancelled"; });
+    //         Search.Content = "Cancel";
+    //
+    //         var identifiers = StockIdentifier.Text.Split(',', ' ');
+    //         var stockService = new StockService();
+    //         
+    //         var loadTasks = new List<Task<IEnumerable<StockPrice>>>();
+    //         foreach (var identifier in identifiers)
+    //         {
+    //             var loadTask = stockService.GetStockPricesFor(identifier, _cancellationTokenSource.Token);
+    //
+    //             loadTask = loadTask.ContinueWith((completedTask) =>
+    //             {
+    //                 var aFewStocks = completedTask.Result.Take(5);
+    //                 foreach (var stock in aFewStocks)
+    //                 {
+    //                     allStocks.Add(stock);
+    //                 }   
+    //                 
+    //                 // updating UI on the main thread
+    //                 Dispatcher.Invoke(() => { Stocks.ItemsSource = allStocks.ToArray(); });
+    //                 
+    //                 return aFewStocks;
+    //             });
+    //
+    //             
+    //             loadTasks.Add(loadTask);
+    //         }
+    //
+    //         await Task.WhenAll(loadTasks);
+    //     }
+    //     catch (Exception exception)
+    //     {
+    //         Console.WriteLine(exception);
+    //         Notes.Text = exception.Message;
+    //     }
+    //     finally
+    //     {
+    //         AfterLoadingStockData(allStocks?.Count() ?? 0);
+    //         
+    //         _cancellationTokenSource?.Dispose();
+    //         _cancellationTokenSource = null;
+    //         Search.Content = "Search";
+    //     }
+    // }
 
     async Task<IEnumerable<StockPrice>> GetStocksFromFile(CancellationToken cancellationToken)
     {
