@@ -181,7 +181,7 @@ foreach (var identifier in identifiers)
   - cleanup resources asynchronously by implementing `IAsyncDisposable` interface.
   - `await using` statement is used to dispose the resources asynchronously.
 ```csharp
-var service = new StockDiskStreamService();
+          var service = new StockDiskStreamService();
           var enumerator = service.GetAllStockPrices();
 
           await foreach (var price in enumerator.WithCancellation(CancellationToken.None))

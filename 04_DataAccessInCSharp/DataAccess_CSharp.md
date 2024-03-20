@@ -30,7 +30,6 @@
 - This requires the entity to know about accessing the service or database
 - Lazy<T> provides support for lazy initialization implements the value holder and value loader patterns.
 - Lazy<T> is thread safe
-- 
 
 
 
