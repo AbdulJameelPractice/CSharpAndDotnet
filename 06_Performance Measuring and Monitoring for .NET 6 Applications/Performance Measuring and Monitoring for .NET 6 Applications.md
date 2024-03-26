@@ -125,3 +125,23 @@ Tracing in .NET Framework
     dotnet trace collect 
      
 ```
+### Metrics
+- PerformanceCounter
+- EventCounters
+- System.Diagnostic.Metrics (#fully compitable with open telemetry)
+  - more functional
+  - More metric types
+  - ThreadSafe
+  - relatively new
+
+```csharp
+- dotnet tool install -g dotnet-counters
+- dotnet counter cli
+
+dotnet counters monitor -p 102761(processid)
+dotnet counters monitor -p 102761 --counters System.Runtime,Custom.Monitor,    
+```
+
+![](../docs/Performance_3.png)
+![](../docs/Performance_4.png)
+![](../docs/Performance_5.png)
